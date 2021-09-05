@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyMusic.Api.Models.ViewModels;
+using MyMusic.Api.Models.ViewModels.IdentityVM;
+using MyMusic.Core.AuthEntities;
 using MyMusic.Core.Entities;
 
 namespace MyMusic.Api.Mapper
@@ -17,6 +19,9 @@ namespace MyMusic.Api.Mapper
 
             CreateMap<SaveArtistViewModel, Artist>();
             CreateMap<SaveMusicViewModel, Music>();
+
+            CreateMap<SignUpViewModel, User>().ForMember(u => u.UserName,
+                opt => opt.MapFrom(u => u.Email));
         }
     }
 }

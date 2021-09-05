@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MyMusic.Api.Settings;
 using MyMusic.Core.AuthEntities;
 using MyMusic.Core.Interfaces;
 using MyMusic.Data.Context;
@@ -41,17 +42,18 @@ namespace MyMusic.Api
             services.AddTransient<IMusicService, MusicService>();
             services.AddIdentity<User,Role>()
                 .AddEntityFrameworkStores<MyDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders();    
 
             services.AddDbContext<MyDbContext>(opt => opt
                 .UseSqlServer(Configuration.GetConnectionString("Default"),
                     x =>x.MigrationsAssembly("MyMusic.Data")));
             services.AddAutoMapper(typeof(Startup));
-
+            services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "My Music", Version = "v1" });
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
