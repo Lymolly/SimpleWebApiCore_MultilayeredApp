@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using MyMusic.Api.Models.ViewModels;
 using MyMusic.Api.Validators;
 using MyMusic.Core.Entities;
@@ -13,6 +14,7 @@ namespace MyMusic.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize/*(Policy ="Test")*/]
     public class ArtistController : ControllerBase
     {
         private readonly IArtistService _artistService;
